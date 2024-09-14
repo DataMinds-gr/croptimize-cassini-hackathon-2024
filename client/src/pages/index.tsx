@@ -1,7 +1,12 @@
+import "leaflet/dist/leaflet.css";
+import dynamic from "next/dynamic";
+
+const Map = dynamic(() => import("../components/Map"), { ssr: false });
+
 export default function Home() {
   return (
-    <>
-      <h1 className="text-center mt-16">hello cassini</h1>
-    </>
+    <div className="">
+      <Map />
+    </div>
   );
 }
