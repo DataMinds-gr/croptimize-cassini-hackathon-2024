@@ -268,6 +268,27 @@ files = [
 pycparser = "*"
 
 [[package]]
+name = "cfgrib"
+version = "0.9.14.1"
+description = "Python interface to map GRIB files to the NetCDF Common Data Model following the CF Convention using ecCodes."
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "cfgrib-0.9.14.1-py3-none-any.whl", hash = "sha256:0714ece262231b0d4006fc7ba5a04f287a9fd42473ac3f6ed4703eb2e7e92161"},
+    {file = "cfgrib-0.9.14.1.tar.gz", hash = "sha256:a6e66e8a3d8f9823d3eef0c2c6ebca602d5bcc324f0baf4f3d13f68b0b40501e"},
+]
+
+[package.dependencies]
+attrs = ">=19.2"
+click = "*"
+eccodes = ">=0.9.8"
+numpy = "*"
+
+[package.extras]
+tests = ["dask[array]", "flake8", "pytest", "pytest-cov", "scipy", "xarray (>=0.15)"]
+xarray = ["xarray (>=0.15)"]
+
+[[package]]
 name = "charset-normalizer"
 version = "3.3.2"
 description = "The Real First Universal Charset Detector. Open, modern and actively maintained alternative to Chardet."
@@ -599,6 +620,36 @@ files = [
 ]
 
 [[package]]
+name = "eccodes"
+version = "2.37.0"
+description = "Python interface to the ecCodes GRIB and BUFR decoder/encoder"
+optional = false
+python-versions = "*"
+files = [
+    {file = "eccodes-2.37.0-cp310-cp310-macosx_13_0_arm64.whl", hash = "sha256:5cdb8c8e113db2e284a43391603a6e1a1ae69b7cd4063258b2e8a23538d91f90"},
+    {file = "eccodes-2.37.0-cp310-cp310-macosx_13_0_x86_64.whl", hash = "sha256:a213138088e93cf2c17c20aafa0890d7c99d042c494836553d6b4416fd4a5235"},
+    {file = "eccodes-2.37.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:4c4f980ac4664fb8324d5195dbba833c3b45513c4451791038721af1784f46f3"},
+    {file = "eccodes-2.37.0-cp311-cp311-macosx_13_0_arm64.whl", hash = "sha256:28b6b059e5bc156e3b6814f93b291aba9c290502652fabf638972656e6ccae25"},
+    {file = "eccodes-2.37.0-cp311-cp311-macosx_13_0_x86_64.whl", hash = "sha256:ccd454d7ceecde90a092d104af9065ad7503a339b46b37719f09d9420845ee6f"},
+    {file = "eccodes-2.37.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:3b963e5f9a945fa8bca18b66bdfa32cee513a6b080effd967daf4e10ba3f741f"},
+    {file = "eccodes-2.37.0-cp312-cp312-macosx_13_0_arm64.whl", hash = "sha256:4a107567b55fa0188b7215ea0e5d78680dcd73b6b80596d38c15587fae141713"},
+    {file = "eccodes-2.37.0-cp312-cp312-macosx_13_0_x86_64.whl", hash = "sha256:1fbfad23f5f31e5f578f6a9bb46b8b5fdf6e09d033e42a600cc2212278bb7c07"},
+    {file = "eccodes-2.37.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:76d3a7dbaf5590ade2f5c45ba6d2567a7b01864a407f8be4a06bdfc9a5e2e30b"},
+    {file = "eccodes-2.37.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:12d1738c607289ab42be90e9246b1e6efd4f5aefd0cb2eaf341e8aebd70d01fe"},
+    {file = "eccodes-2.37.0-cp39-cp39-macosx_13_0_arm64.whl", hash = "sha256:f43c3f90be33a2362400a589d3d086eba37f118109c2d431c735b25c5c769d88"},
+    {file = "eccodes-2.37.0-cp39-cp39-macosx_13_0_x86_64.whl", hash = "sha256:964e57ac46f9b01d3ab54acdb4cfae44bbb4c24ee9d5d76eed43892c8e5dabdf"},
+    {file = "eccodes-2.37.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:1c0b5cec6dac9d2985345e79a6d29ae7e27d0a8e5b9fcd0c571081aa0f1c76f0"},
+    {file = "eccodes-2.37.0-py3-none-any.whl", hash = "sha256:434e9e832d965f23141effa28a6997c635243d4d7cb8afb7ff453c6627014fc1"},
+    {file = "eccodes-2.37.0.tar.gz", hash = "sha256:ce9e11dba82dbdfee8803a26d03fe200307b23eac08e20c029c3e84b84757305"},
+]
+
+[package.dependencies]
+attrs = "*"
+cffi = "*"
+findlibs = "*"
+numpy = "*"
+
+[[package]]
 name = "ecmwf-api-client"
 version = "1.6.3"
 description = "Python client for ECMWF web services API."
@@ -690,6 +741,16 @@ typing-extensions = ">=4.8.0"
 [package.extras]
 all = ["email-validator (>=2.0.0)", "fastapi-cli[standard] (>=0.0.5)", "httpx (>=0.23.0)", "itsdangerous (>=1.1.0)", "jinja2 (>=2.11.2)", "orjson (>=3.2.1)", "pydantic-extra-types (>=2.0.0)", "pydantic-settings (>=2.0.0)", "python-multipart (>=0.0.7)", "pyyaml (>=5.3.1)", "ujson (>=4.0.1,!=4.0.2,!=4.1.0,!=4.2.0,!=4.3.0,!=5.0.0,!=5.1.0)", "uvicorn[standard] (>=0.12.0)"]
 standard = ["email-validator (>=2.0.0)", "fastapi-cli[standard] (>=0.0.5)", "httpx (>=0.23.0)", "jinja2 (>=2.11.2)", "python-multipart (>=0.0.7)", "uvicorn[standard] (>=0.12.0)"]
+
+[[package]]
+name = "findlibs"
+version = "0.0.5"
+description = "A packages to search for shared libraries on various platforms"
+optional = false
+python-versions = "*"
+files = [
+    {file = "findlibs-0.0.5.tar.gz", hash = "sha256:7a801571e999d0ee83f9b92cbb598c21f861ee26ca9dba74cea8958ba4335e7e"},
+]
 
 [[package]]
 name = "fonttools"
@@ -2018,6 +2079,33 @@ files = [
 windows-terminal = ["colorama (>=0.4.6)"]
 
 [[package]]
+name = "pygrib"
+version = "2.1.6"
+description = "Python module for reading/writing GRIB files"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "pygrib-2.1.6-cp310-cp310-macosx_11_0_x86_64.whl", hash = "sha256:354028fcfc5f29dbebe16da2df3c8cf41383818cf27a43adfa6cc1a4e43c249b"},
+    {file = "pygrib-2.1.6-cp310-cp310-macosx_14_0_arm64.whl", hash = "sha256:06b3fb25889225a599a908fdb8d4590ab30a2738048d877725f90b6a2a777983"},
+    {file = "pygrib-2.1.6-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:37ce2c761489b68f2642c739a488470b58aacf13c96bdae671dd35730960e94e"},
+    {file = "pygrib-2.1.6-cp311-cp311-macosx_11_0_x86_64.whl", hash = "sha256:d6b912cc528c3a87e4f9f990d5c1e57a54f61835dad5b8daac6adb048faf5c5a"},
+    {file = "pygrib-2.1.6-cp311-cp311-macosx_14_0_arm64.whl", hash = "sha256:dc7fcb20bd5e2a94e1b7501bed45d418eadc6e325bed5f4de37a254409b5a5fe"},
+    {file = "pygrib-2.1.6-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:69a42b44ae395280b08f62e598b696444446759ae4954db42ad2d01ee2c94d8b"},
+    {file = "pygrib-2.1.6-cp312-cp312-macosx_11_0_x86_64.whl", hash = "sha256:fa4613eef98b26bf9a8719869f656aa15362f700311aec777b2190deb1060a1d"},
+    {file = "pygrib-2.1.6-cp312-cp312-macosx_14_0_arm64.whl", hash = "sha256:332d29bbc16749375b24c8d9bd01180c0a9eda471df86b2073432fba3339d658"},
+    {file = "pygrib-2.1.6-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:d368c359acacae4061ebcdfe635fb826f21fbc1f6c2227a269c870d9e8b49e70"},
+    {file = "pygrib-2.1.6-cp39-cp39-macosx_11_0_x86_64.whl", hash = "sha256:31e2f06b91bbd4efcc142a68605102563b7e3599336d9a409dde7016266d5cf7"},
+    {file = "pygrib-2.1.6-cp39-cp39-macosx_14_0_arm64.whl", hash = "sha256:ac216dd2fae9a4f13487d4aff16b2e9ae3d513042c11608761dc944f8f98bbb3"},
+    {file = "pygrib-2.1.6-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:78950045e02ff7e84ba19bf41ba5f778e0f17dcc0cf26ae83c6cfded1857515a"},
+    {file = "pygrib-2.1.6.tar.gz", hash = "sha256:047980aeb010ef457999950bcc8e46556910316cb77fe78c0bd1b3520aa920f0"},
+]
+
+[package.dependencies]
+numpy = "*"
+packaging = "*"
+pyproj = "*"
+
+[[package]]
 name = "pyogrio"
 version = "0.9.0"
 description = "Vectorized spatial vector file format I/O using GDAL/OGR"
@@ -2966,4 +3054,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "e2e686e43785406ae9d04be38955e16daeaf91a7d7808c3d8e13b4c12a5daf23"
+content-hash = "f8f7aa592696830947abdbce86d5020eff41da66c854adfd180eb3d8f2a44ecd"
