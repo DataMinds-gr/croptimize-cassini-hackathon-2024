@@ -21,7 +21,7 @@ function MainNav() {
   return (
     <div className="max-w-[10%] min-w-[256px] h-screen p-8 text-xl border-r-myGray10 border">
       <Image src="/icons/logo.svg" alt="CrOptimize" className="mb-8" width={150} height={100} />
-      <p className="text-gray-400 py-1 px-3">Dashboards</p>
+      <p className="text-myGray40 py-1 px-3 mb-4">Dashboards</p>
       <div>
         <NavItem icon="/icons/map-trifold.svg" alt="Map" text="Map" link="/" />
         <NavItem icon="/icons/carrot.svg" alt="Carrot" text="Crops" link="/crops" />

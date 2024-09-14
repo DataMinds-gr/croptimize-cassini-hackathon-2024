@@ -10,6 +10,8 @@ const config: Config = {
         myLightGreen: "#A3C78F",
         myYellow: "#FFDF38",
         myGray10: "#1C1C1C1A",
+        myGray5: "#1C1C1C0D",
+        myGray40: "#1C1C1C66",
       },
     },
   },
