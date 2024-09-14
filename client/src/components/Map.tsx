@@ -1,7 +1,7 @@
 // import "leaflet/dist/leaflet.css";
-import { MapContainer, TileLayer, useMap, GeoJSON } from "react-leaflet";
-import geojsonData from "../../public/maps/main.json";
 import { useEffect, useState } from "react";
+import { GeoJSON, MapContainer, TileLayer, useMap } from "react-leaflet";
+import geojsonData from "../../public/maps/main.json";
 
 const GreeceBounds = [
   [36.0, 19.0],
@@ -59,9 +59,7 @@ function Map() {
       ...geojsonData,
       features: geojsonData.features.map((feature) => {
         console.log(feature.properties.name === name);
-        return feature.properties.name === name
-          ? { ...feature, properties: { ...feature.properties, color: "blue" } }
-          : feature;
+        return feature.properties.name === name ? { ...feature, properties: { ...feature.properties, color: "blue" } } : feature;
       }),
     };
     setHighlightedFeature(updatedData);
@@ -89,27 +87,38 @@ function Map() {
   };
 
   return (
-    <div className="grid grid-cols-2">
-      <MapContainer style={{ height: "100vh", width: "100%", margin: "auto" }} center={[37.9838, 23.7275]} zoom={6}>
-        <TileLayer
-          url="https://stamen-tiles.a.ssl.fastly.net/toner/{z}/{x}/{y}.png"
-          attribution='Map tiles by <a href="https://stamen.com">Stamen Design</a>, <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
-        />
-        <RestrictMap />
-        <GeoJSON
-          key={JSON.stringify(highlightedFeature)}
-          data={highlightedFeature}
-          style={geoJsonStyle}
-          onEachFeature={onEachFeature}
-        />
-      </MapContainer>
-      <div>
-        <button className="bg-green-600 rounded-lg px-6 py-2" onClick={() => changeColor("East Macedonia and Thrace")}>
-          color
-        </button>
-      </div>
-    </div>
+    <MapContainer style={{ height: "100vh", width: "100%", margin: "auto" }} center={[37.9838, 23.7275]} zoom={6}>
+      <TileLayer
+        url="https://stamen-tiles.a.ssl.fastly.net/toner/{z}/{x}/{y}.png"
+        attribution='Map tiles by <a href="https://stamen.com">Stamen Design</a>, <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
+      />
+      <RestrictMap />
+      <GeoJSON key={JSON.stringify(highlightedFeature)} data={highlightedFeature} style={geoJsonStyle} onEachFeature={onEachFeature} />
+    </MapContainer>
   );
+
+  // return (
+  //   <div className="grid grid-cols-2">
+  //     <MapContainer style={{ height: "100vh", width: "100%", margin: "auto" }} center={[37.9838, 23.7275]} zoom={6}>
+  //       <TileLayer
+  //         url="https://stamen-tiles.a.ssl.fastly.net/toner/{z}/{x}/{y}.png"
+  //         attribution='Map tiles by <a href="https://stamen.com">Stamen Design</a>, <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
+  //       />
+  //       <RestrictMap />
+  //       <GeoJSON
+  //         key={JSON.stringify(highlightedFeature)}
+  //         data={highlightedFeature}
+  //         style={geoJsonStyle}
+  //         onEachFeature={onEachFeature}
+  //       />
+  //     </MapContainer>
+  //     <div>
+  //       <button className="bg-green-600 rounded-lg px-6 py-2" onClick={() => changeColor("East Macedonia and Thrace")}>
+  //         color
+  //       </button>
+  //     </div>
+  //   </div>
+  // );
 }
 
 export default Map;
