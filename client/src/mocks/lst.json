@@ -1,0 +1,56 @@
+{
+  "results": [
+    {
+      "name": "East Macedonia and Thrace",
+      "value": 23
+    },
+    {
+      "name": "Central Macedonia",
+      "value": 28
+    },
+    {
+      "name": "Thessaly",
+      "value": 20
+    },
+    {
+      "name": "North Aegean",
+      "value": 18
+    },
+    {
+      "name": "South Aegean",
+      "value": 13
+    },
+    {
+      "name": "Central Greece",
+      "value": 14
+    },
+    {
+      "name": "Western Greece",
+      "value": 7
+    },
+    {
+      "name": "Peloponnese",
+      "value": 13
+    },
+    {
+      "name": "Attica",
+      "value": 10
+    },
+    {
+      "name": "West Macedonia",
+      "value": 5
+    },
+    {
+      "name": "Epirus",
+      "value": 16
+    },
+    {
+      "name": "Ionian Islands",
+      "value": 7
+    },
+    {
+      "name": "Crete",
+      "value": 12
+    }
+  ]
+}
