@@ -1,4 +1,6 @@
 // import "leaflet/dist/leaflet.css";
+import lst from "@/mocks/lst.json";
+import allRanges from "@/mocks/ranges.json";
 import { useEffect, useState } from "react";
 import { GeoJSON, MapContainer, TileLayer, useMap } from "react-leaflet";
 import geojsonData from "../../public/maps/main.json";
@@ -16,11 +18,12 @@ const defaultStyle = {
   fillOpacity: 0.5,
 };
 
-// const colorMapping = {
-//   notSuitable: "red",
-//   suitable: "green",
-//   unknown: "gray",
-// };
+const colorMapping = [
+  "#FB6D64", // red
+  "#4E763B", // green
+  "#A3C78F", // light green
+  "#FFA500", // orange
+];
 
 const ZOOM_LEVEL = 7;
 
@@ -41,13 +44,24 @@ const RestrictMap = () => {
   return null;
 };
 
-function Map() {
+function Map({ selectedCrop }) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [highlightedFeature, setHighlightedFeature] = useState<any>(geojsonData);
+  const cropRanges = allRanges[selectedCrop];
 
   const geoJsonStyle = (feature) => {
+    const regionLst = lst.results.find((region) => region.name === feature.properties.name);
+    const cropRangeSuitability = cropRanges?.find((suitability) => {
+      console.log(suitability);
+      return suitability.ranges.find((range) => {
+        console.log(range);
+        return range.min <= regionLst.value && regionLst.value <= range.max;
+      });
+    });
+    console.log(cropRangeSuitability?.label);
+
     return {
-      color: feature.properties.color || "gray",
+      color: colorMapping[cropRangeSuitability?.value] || "gray",
       weight: 2,
       fillOpacity: 0.5,
     };

@@ -9,7 +9,7 @@ export default function Home() {
   const [selectedCrop, setSelectedCrop] = useState(null);
   return (
     <div className="flex">
-      <Map />
+      <Map selectedCrop={selectedCrop} />
       <CropSelection selectedCrop={selectedCrop} setSelectedCrop={setSelectedCrop} />
     </div>
   );
