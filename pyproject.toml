@@ -15,6 +15,7 @@ matplotlib = "^3.9.2"
 requests-oauthlib = "^2.0.0"
 cdsapi = "^0.7.3"
 python-dotenv = "^1.0.1"
+sentinelhub = "^3.10.3"
 
 
 [tool.poetry.group.dev.dependencies]

@@ -1,17 +1,25 @@
+import os
+from dotenv import load_dotenv
 from oauthlib.oauth2 import BackendApplicationClient
 from requests_oauthlib import OAuth2Session
 
+# Load environment variables from .env file
+load_dotenv()
+
 # Your client credentials
-client_id = 'sh-9e591b3a-36ee-49c1-94db-96f930cd411a'
-client_secret = 'tPgVarxGoKIJDmxGUIfDBD6YY30cRMaq'
+client_id = os.getenv("CLIENT_ID")
+client_secret = os.getenv("CLIENT_SECRET")
 
 # Create a session
 client = BackendApplicationClient(client_id=client_id)
 oauth = OAuth2Session(client=client)
 
 # Get token for the session
-token = oauth.fetch_token(token_url='https://identity.dataspace.copernicus.eu/auth/realms/CDSE/protocol/openid-connect/token',
-                          client_secret=client_secret, include_client_id=True)
+token = oauth.fetch_token(
+    token_url="https://identity.dataspace.copernicus.eu/auth/realms/CDSE/protocol/openid-connect/token",
+    client_secret=client_secret,
+    include_client_id=True,
+)
 
 # All requests using this session will have an access token automatically added
 resp = oauth.get("https://sh.dataspace.copernicus.eu/configuration/v1/wms/instances")
