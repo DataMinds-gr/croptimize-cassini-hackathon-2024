@@ -16,6 +16,8 @@ requests-oauthlib = "^2.0.0"
 cdsapi = "^0.7.3"
 python-dotenv = "^1.0.1"
 sentinelhub = "^3.10.3"
+cfgrib = "^0.9.14.1"
+pygrib = "^2.1.6"
 
 
 [tool.poetry.group.dev.dependencies]
