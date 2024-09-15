@@ -90,7 +90,11 @@ function MapStatisticModal({ modalOpen, closeModal, selectedArea, selectedCrop }
       {modalOpen ? (
         <>
           <div className="justify-center items-center flex fixed inset-0 z-50" onClick={closeModal}>
-            <div className="relative w-3/5 h-[800px] overflow-auto bg-white" onClick={(e) => e.stopPropagation()}>
+            <div
+              style={{ scrollbarGutter: "stable" }}
+              className="relative w-3/5 h-[800px] overflow-auto bg-white"
+              onClick={(e) => e.stopPropagation()}
+            >
               <div className="rounded-lg relative bg-white w-full p-16 h-full">
                 <div className="grid justify-center text-center mb-12 gap-2">
                   <h3 className="text-3xl font-semibold">{selectedArea.name}</h3>
