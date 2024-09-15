@@ -100,7 +100,10 @@ function CropSelection({ selectedCrop, setSelectedCrop }) {
             icon={crop.icon}
             isSelected={selectedCrop === crop.name}
             handleClick={() => {
-              setSelectedCrop(crop.name);
+              if (selectedCrop === crop.name) setSelectedCrop("");
+              else {
+                setSelectedCrop(crop.name);
+              }
             }}
           />
         ))}
