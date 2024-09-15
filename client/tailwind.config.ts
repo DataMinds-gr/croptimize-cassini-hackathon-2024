@@ -8,7 +8,7 @@ const config: Config = {
         myRed: "#FB6D64",
         myGreen: "#4E763B",
         myLightGreen: "#A3C78F",
-        myYellow: "#FFDF38",
+        myOrange: "#FFA500",
         myGray10: "#1C1C1C1A",
         myGray5: "#1C1C1C0D",
         myGray40: "#1C1C1C66",

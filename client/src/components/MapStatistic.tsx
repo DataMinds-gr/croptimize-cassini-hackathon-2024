@@ -1,0 +1,109 @@
+import Image from "next/image";
+import { useState } from "react";
+
+function StatisticCard({ title, value, rangeMin, rangeMax }) {
+  const [extraOpen, setExtraOpen] = useState(false);
+
+  const percentage = ((value - rangeMin) / (rangeMax - rangeMin)) * 100;
+  const center = (rangeMin + rangeMax) / 2;
+
+  const getColor = (value, rangeMin, rangeMax) => {
+    const distanceFromCenter = Math.abs(value - center);
+    const maxDistance = Math.max(center - rangeMin, rangeMax - center);
+    const normalizedDistance = distanceFromCenter / maxDistance;
+    const red = Math.floor(255 * normalizedDistance);
+    const green = Math.floor(255 * (1 - normalizedDistance));
+    return `rgb(${red}, ${green}, 0)`;
+  };
+  const toggleExtra = () => {
+    setExtraOpen(!extraOpen);
+  };
+
+  return (
+    <div className="bg-myGray5 p-4 rounded-xl h-fit">
+      <div className="flex justify-between mb-2">
+        <p>{title}</p>
+        <div onClick={toggleExtra}>
+          <Image src="/icons/arrow-down.svg" alt="area" width={16} height={16} />
+        </div>
+      </div>
+      <div className="relative flex items-center rounded-xl bg-white px-2">
+        <p>{rangeMin}</p>
+        <div className="relative w-full rounded-full">
+          <div
+            className="absolute -top-3 text-center px-6 rounded-xl"
+            style={{
+              left: `${percentage}%`,
+              transform: "translateX(-50%)",
+              backgroundColor: getColor(value, rangeMin, rangeMax),
+            }}
+          >
+            {value}
+          </div>
+        </div>
+        <p>{rangeMax}</p>
+      </div>
+      {extraOpen && (
+        <div className="h-16 flex items-center justify-center">
+          <p className="text-center">Graph with historical data and forecast</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function StatisticCardDisabled({ title }) {
+  return (
+    <div className="bg-myGray5 p-4 rounded-xl">
+      <div className="flex justify-between mb-2">
+        <p>{title}</p>
+        <Image src="/icons/arrow-down.svg" alt="area" width={16} height={16} />
+      </div>
+      <div className="flex justify-center rounded-xl bg-white px-2">
+        <p className="px-8 h-6 bg-myGray40 rounded-xl"></p>
+      </div>
+    </div>
+  );
+}
+
+function MapStatisticModal({ modalOpen, closeModal, selectedArea, selectedCrop }) {
+  console.log(selectedArea);
+  return (
+    <>
+      {modalOpen ? (
+        <>
+          <div className="justify-center items-center flex fixed inset-0 z-50" onClick={closeModal}>
+            <div className="relative w-3/5 h-1/2" onClick={(e) => e.stopPropagation()}>
+              <div className="rounded-lg relative bg-white w-full p-16 h-full">
+                <div className="grid justify-center text-center mb-12 gap-2">
+                  <h3 className="text-3xl font-semibold">{selectedArea.name}</h3>
+                  <div className="flex gap-1">
+                    <p className="text-myGray40">Color grade is based on suitability for</p>
+                    <p className="font-bold">{selectedCrop}</p>
+                  </div>
+                  <button className="absolute top-6 right-6 p-2" onClick={closeModal}>
+                    <Image src="/icons/x.svg" alt="close" width={24} height={24} />
+                  </button>
+                </div>
+                <div className="grid grid-cols-3 gap-8">
+                  <StatisticCard title="Organic Matter" value="0" rangeMin={-5} rangeMax={38} />
+                  <StatisticCard title="Temperature" value={selectedArea.lst.value} rangeMin={-20} rangeMax={38} />
+                  <StatisticCard title="Rainfall Level" value="23" rangeMin={-5} rangeMax={38} />
+                  <StatisticCard title="Humidity" value="30" rangeMin={-5} rangeMax={38} />
+                  <StatisticCardDisabled title="Soil Type" />
+                  <StatisticCardDisabled title="Soil pH" />
+                  <StatisticCardDisabled title="Extreme Weather" />
+                  <StatisticCardDisabled title="Salinity" />
+                  <StatisticCardDisabled title="Altitude" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+        </>
+      ) : null}
+    </>
+  );
+}
+
+export default MapStatisticModal;

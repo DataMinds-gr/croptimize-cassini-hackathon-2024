@@ -4,6 +4,8 @@ import allRanges from "@/mocks/ranges.json";
 import { useEffect, useState } from "react";
 import { GeoJSON, MapContainer, TileLayer, useMap } from "react-leaflet";
 import geojsonData from "../../public/maps/main.json";
+import Legend from "./Legend";
+import MapStatistic from "./MapStatistic";
 
 const GreeceBounds = [
   [36.0, 19.0],
@@ -45,8 +47,10 @@ const RestrictMap = () => {
 };
 
 function Map({ selectedCrop }) {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
   const [highlightedFeature, setHighlightedFeature] = useState<any>(geojsonData);
+  const [selectedArea, setSelectedArea] = useState({ name: null, lst: null });
+  const [modalOpen, setModalOpen] = useState(false);
   const cropRanges = allRanges[selectedCrop];
 
   const geoJsonStyle = (feature) => {
@@ -67,17 +71,17 @@ function Map({ selectedCrop }) {
     };
   };
 
-  const changeColor = (name: string) => {
-    // TODO: Set a new color for the desired feature
-    const updatedData = {
-      ...geojsonData,
-      features: geojsonData.features.map((feature) => {
-        console.log(feature.properties.name === name);
-        return feature.properties.name === name ? { ...feature, properties: { ...feature.properties, color: "blue" } } : feature;
-      }),
-    };
-    setHighlightedFeature(updatedData);
-  };
+  // const changeColor = (name: string) => {
+  //   // TODO: Set a new color for the desired feature
+  //   const updatedData = {
+  //     ...geojsonData,
+  //     features: geojsonData.features.map((feature) => {
+  //       console.log(feature.properties.name === name);
+  //       return feature.properties.name === name ? { ...feature, properties: { ...feature.properties, color: "blue" } } : feature;
+  //     }),
+  //   };
+  //   setHighlightedFeature(updatedData);
+  // };
 
   const onEachFeature = (_, layer) => {
     layer.on({
@@ -89,7 +93,11 @@ function Map({ selectedCrop }) {
 
   const onFeatureClick = (event) => {
     const { properties } = event.target.feature;
-    console.log(properties.name);
+    console.log(selectedCrop);
+    if (selectedCrop) {
+      setModalOpen(true);
+      setSelectedArea({ name: properties.name, lst: lst.results.find((region) => region.name === properties.name) });
+    }
   };
 
   const onFeatureMouseOver = (event) => {
@@ -100,15 +108,31 @@ function Map({ selectedCrop }) {
     event.target.setStyle(defaultStyle);
   };
 
+  const handleCloseModal = () => {
+    setModalOpen(false);
+    setSelectedArea({ name: null, lst: null });
+  };
+
   return (
-    <MapContainer style={{ height: "100vh", width: "100%", margin: "auto" }} center={[37.9838, 23.7275]} zoom={6}>
-      <TileLayer
-        url="https://stamen-tiles.a.ssl.fastly.net/toner/{z}/{x}/{y}.png"
-        attribution='Map tiles by <a href="https://stamen.com">Stamen Design</a>, <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
-      />
-      <RestrictMap />
-      <GeoJSON key={JSON.stringify(highlightedFeature)} data={highlightedFeature} style={geoJsonStyle} onEachFeature={onEachFeature} />
-    </MapContainer>
+    <>
+      <div className="relative w-full z-10">
+        <MapContainer style={{ height: "100vh", width: "100%", margin: "auto" }} center={[37.9838, 23.7275]} zoom={6}>
+          <TileLayer
+            url="https://stamen-tiles.a.ssl.fastly.net/toner/{z}/{x}/{y}.png"
+            attribution='Map tiles by <a href="https://stamen.com">Stamen Design</a>, <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
+          />
+          <RestrictMap />
+          <GeoJSON
+            key={JSON.stringify({ highlightedFeature, selectedCrop })}
+            data={highlightedFeature}
+            style={geoJsonStyle}
+            onEachFeature={onEachFeature}
+          />
+        </MapContainer>
+        <Legend />
+      </div>
+      <MapStatistic modalOpen={modalOpen} closeModal={handleCloseModal} selectedArea={selectedArea} selectedCrop={selectedCrop} />
+    </>
   );
 
   // return (
