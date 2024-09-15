@@ -10,7 +10,7 @@ function Crops() {
       <div className="flex-1 bg-myGray10">
         <div className="p-4 bg-white">
           <h1 className="text-3xl font-bold">Crops</h1>
-          <p className="text-myGray3">Select a crop to view information</p>
+          <p className="text-myGray40">Select a crop to view information</p>
         </div>
         {selectedCrop ? (
           <CropInformation selectedCrop={selectedCrop} />
