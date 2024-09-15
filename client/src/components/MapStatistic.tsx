@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useState } from "react";
 
-function StatisticCard({ title, value, rangeMin, rangeMax }) {
+function StatisticCard({ title, value, rangeMin, rangeMax, real = false }) {
   const [extraOpen, setExtraOpen] = useState(false);
 
   const percentage = ((value - rangeMin) / (rangeMax - rangeMin)) * 100;
@@ -25,6 +25,18 @@ function StatisticCard({ title, value, rangeMin, rangeMax }) {
   const toggleExtra = () => {
     setExtraOpen(!extraOpen);
   };
+
+  const placeholder = (
+    <div className="h-16 flex items-center justify-center">
+      <p className="text-center">Graph with historical data and forecast</p>
+    </div>
+  );
+
+  const graphMock = (
+    <div>
+      <Image src="/images/graph.png" alt="graph" width={600} height={300} className="rounded-xl" />
+    </div>
+  );
 
   return (
     <div className="bg-myGray5 p-4 rounded-xl h-fit">
@@ -50,11 +62,7 @@ function StatisticCard({ title, value, rangeMin, rangeMax }) {
         </div>
         <p>{rangeMax}</p>
       </div>
-      {extraOpen && (
-        <div className="h-16 flex items-center justify-center">
-          <p className="text-center">Graph with historical data and forecast</p>
-        </div>
-      )}
+      {extraOpen && (real ? graphMock : placeholder)}
     </div>
   );
 }
@@ -80,7 +88,7 @@ function MapStatisticModal({ modalOpen, closeModal, selectedArea, selectedCrop }
       {modalOpen ? (
         <>
           <div className="justify-center items-center flex fixed inset-0 z-50" onClick={closeModal}>
-            <div className="relative w-3/5 h-1/2" onClick={(e) => e.stopPropagation()}>
+            <div className="relative w-3/5 h-1/2 overflow-hidden" onClick={(e) => e.stopPropagation()}>
               <div className="rounded-lg relative bg-white w-full p-16 h-full">
                 <div className="grid justify-center text-center mb-12 gap-2">
                   <h3 className="text-3xl font-semibold">{selectedArea.name}</h3>
@@ -93,7 +101,7 @@ function MapStatisticModal({ modalOpen, closeModal, selectedArea, selectedCrop }
                   </button>
                 </div>
                 <div className="grid grid-cols-3 gap-8">
-                  <StatisticCard title="Temperature" value={selectedArea.lst.value} rangeMin={-20} rangeMax={38} />
+                  <StatisticCard title="Temperature" value={selectedArea.lst.value} rangeMin={-20} rangeMax={38} real />
                   <StatisticCard title="Organic Matter" value="-3" rangeMin={-5} rangeMax={38} />
                   <StatisticCard title="Rainfall Level" value="23" rangeMin={-5} rangeMax={38} />
                   <StatisticCard title="Humidity" value="30" rangeMin={-5} rangeMax={38} />
