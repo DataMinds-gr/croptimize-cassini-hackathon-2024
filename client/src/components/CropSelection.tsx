@@ -75,7 +75,7 @@ function CropSelection({ selectedCrop, setSelectedCrop }) {
   const filteredCrops = crops.filter((crop) => crop.name.toLowerCase().includes(search.toLowerCase()));
 
   return (
-    <div className="max-w-[10%] min-w-[350px] h-screen p-8 text-xl border-l-myGray10 border">
+    <div className="max-w-[10%] min-w-[350px] h-screen p-8 text-xl border-l-myGray10 border overflow-y-scroll">
       <div className="pb-6">
         <h1>Crop</h1>
         <p className="text-myGray40">Select your crop</p>

@@ -33,8 +33,10 @@ function StatisticCard({ title, value, rangeMin, rangeMax, real = false }) {
   );
 
   const graphMock = (
-    <div>
-      <Image src="/images/graph.png" alt="graph" width={600} height={300} className="rounded-xl" />
+    <div className="pt-4 relative mb-[420px]">
+      <div className="absolute w-[800px] h-[600px] top-10 left-0">
+        <Image src="/images/graph.png" alt="graph" width={800} height={600} className="rounded-xl" />
+      </div>
     </div>
   );
 
@@ -88,7 +90,7 @@ function MapStatisticModal({ modalOpen, closeModal, selectedArea, selectedCrop }
       {modalOpen ? (
         <>
           <div className="justify-center items-center flex fixed inset-0 z-50" onClick={closeModal}>
-            <div className="relative w-3/5 h-1/2 overflow-hidden" onClick={(e) => e.stopPropagation()}>
+            <div className="relative w-3/5 h-[800px] overflow-auto bg-white" onClick={(e) => e.stopPropagation()}>
               <div className="rounded-lg relative bg-white w-full p-16 h-full">
                 <div className="grid justify-center text-center mb-12 gap-2">
                   <h3 className="text-3xl font-semibold">{selectedArea.name}</h3>
