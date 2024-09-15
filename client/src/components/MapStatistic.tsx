@@ -11,10 +11,17 @@ function StatisticCard({ title, value, rangeMin, rangeMax }) {
     const distanceFromCenter = Math.abs(value - center);
     const maxDistance = Math.max(center - rangeMin, rangeMax - center);
     const normalizedDistance = distanceFromCenter / maxDistance;
-    const red = Math.floor(255 * normalizedDistance);
-    const green = Math.floor(255 * (1 - normalizedDistance));
-    return `rgb(${red}, ${green}, 0)`;
+    if (normalizedDistance < 0.5) {
+      const green = 255;
+      const red = Math.floor(512 * normalizedDistance);
+      return `rgba(${red}, ${green}, 0, 0.5)`;
+    } else {
+      const red = 255;
+      const green = Math.floor(255 - 512 * (normalizedDistance - 0.5));
+      return `rgba(${red}, ${green}, 0, 0.5)`;
+    }
   };
+
   const toggleExtra = () => {
     setExtraOpen(!extraOpen);
   };
@@ -86,8 +93,8 @@ function MapStatisticModal({ modalOpen, closeModal, selectedArea, selectedCrop }
                   </button>
                 </div>
                 <div className="grid grid-cols-3 gap-8">
-                  <StatisticCard title="Organic Matter" value="0" rangeMin={-5} rangeMax={38} />
                   <StatisticCard title="Temperature" value={selectedArea.lst.value} rangeMin={-20} rangeMax={38} />
+                  <StatisticCard title="Organic Matter" value="-3" rangeMin={-5} rangeMax={38} />
                   <StatisticCard title="Rainfall Level" value="23" rangeMin={-5} rangeMax={38} />
                   <StatisticCard title="Humidity" value="30" rangeMin={-5} rangeMax={38} />
                   <StatisticCardDisabled title="Soil Type" />
@@ -96,6 +103,20 @@ function MapStatisticModal({ modalOpen, closeModal, selectedArea, selectedCrop }
                   <StatisticCardDisabled title="Salinity" />
                   <StatisticCardDisabled title="Altitude" />
                 </div>
+                <ul className="py-4 flex justify-center gap-4">
+                  <li className="flex items-center mb-2 gap-2">
+                    <div className="rounded-full w-4 h-4 bg-myRed opacity-50"></div> Not Suitable
+                  </li>
+                  <li className="flex items-center mb-2 gap-2">
+                    <div className="rounded-full w-4 h-4 bg-myOrange opacity-50"></div>Marginally Suitable
+                  </li>
+                  <li className="flex items-center mb-2 gap-2">
+                    <div className="rounded-full w-4 h-4 bg-myLightGreen opacity-50"></div>Moderately Suitable
+                  </li>
+                  <li className="flex items-center mb-2 gap-2">
+                    <div className="rounded-full w-4 h-4 bg-myGreen opacity-50"></div>Highly Suitable
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
