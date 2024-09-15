@@ -129,7 +129,7 @@ function Map({ selectedCrop }) {
             onEachFeature={onEachFeature}
           />
         </MapContainer>
-        <Legend />
+        {selectedCrop && <Legend />}
       </div>
       <MapStatistic modalOpen={modalOpen} closeModal={handleCloseModal} selectedArea={selectedArea} selectedCrop={selectedCrop} />
     </>
