@@ -18,6 +18,8 @@ python-dotenv = "^1.0.1"
 sentinelhub = "^3.10.3"
 cfgrib = "^0.9.14.1"
 pygrib = "^2.1.6"
+fastapi = "^0.114.2"
+uvicorn = "^0.30.6"
 
 
 [tool.poetry.group.dev.dependencies]
